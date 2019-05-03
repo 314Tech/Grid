@@ -1,11 +1,13 @@
-import React from 'rect';
+import React from 'react';
 import {
 	View,
-	TouchableOpacity
+	StyleSheet
 } from 'react-native';
-import Square from './Square';
+import {Square} from './Square';
 
-const Row = ({matrix, row, size}) => {
+
+
+const Row = ({matrix, row, size, clickSquare}) => {
 	const {rowViewStyle} = styles;
 
 	let renderRow = [];
@@ -13,7 +15,9 @@ const Row = ({matrix, row, size}) => {
 		renderRow.push(
 			<Square 
 				size = {size}
+				clickSquare = {() => clickSquare(row,column)}
 				color = {(matrix[row][column]) ? 'blue' : 'white'}
+				key = {column}
 			/>
 		);
 	}
@@ -27,7 +31,7 @@ const Row = ({matrix, row, size}) => {
 	)
 }
 
-const Grid = ({matrix, size}) => {
+const Grid = ({matrix, size, clickSquare}) => {
 	const {columnViewStyle} = styles;
 
 	let renderTable = [];
@@ -37,6 +41,8 @@ const Grid = ({matrix, size}) => {
 				matrix = {matrix}
 				row = {row}
 				size = {size}
+				clickSquare = {clickSquare}
+				key = {row}
 			/>
 		);
 	}
@@ -50,7 +56,7 @@ const Grid = ({matrix, size}) => {
 	)
 }
 
-const styles = Stylesheet.create({
+const styles = StyleSheet.create({
 	rowViewStyle: {
 		flexDirection: 'row',
 		justifyContent: 'center',
